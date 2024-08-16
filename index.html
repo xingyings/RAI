@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAI 资料档案网站</title>
+    <style>
+        /* 基本重置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            color: #333;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo {
+            color: #fff;
+            text-decoration: none;
+            font-size: 24px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+        }
+
+        nav li {
+            margin-left: 20px;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .hero {
+            min-height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-image: linear-gradient(to bottom, rgba(255,255,255,0), rgba(33,37,41,0.7)), url('https://source.unsplash.com/random/1600x900?business');
+            background-size: cover;
+            color: #fff;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 600px;
+            padding: 0 20px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background-color: #0056b3;
+        }
+
+        .archive-section {
+            padding: 50px 0;
+            text-align: center;
+        }
+
+        .archive-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .archive-item {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .archive-item h3 {
+            margin-bottom: 10px;
+        }
+
+        .archive-item p {
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .archive-item a {
+            display: inline-block;
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .archive-item a:hover {
+            background-color: #0056b3;
+        }
+
+        .confidential-note {
+            background-color: #f44336;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        /* 内联关键CSS */
+        .hero { background-color: #333; }
+        .archive-list { grid-gap: 20px; }
+        .archive-item { box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        .archive-item a { background-color: #007bff; }
+        .archive-item a:hover { background-color: #0056b3; }
+        .confidential-note { background-color: #f44336; }
+        footer { background-color: #333; }
+
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="rai.html" class="logo">RAI</a>
+            <ul>
+                <li><a href="bilibili.com">主页</a></li>
+                <!-- 其他导航链接可在此处添加 -->
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1>欢迎来到 RAI 资料档案网站</h1>
+                <p>这里提供了详尽的资料和资源供您参考。</p>
+                <a href="rai.html" class="cta-button">了解更多</a>
+            </div>
+        </section>
+        <section class="archive-section">
+            <h2>资料档案</h2>
+            <div id="archiveList" class="archive-list"></div>
+        </section>
+        <div class="confidential-note">
+            <strong>注意：</strong> 请勿将任何敏感资料外泄。
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 RAI. 版权所有.</p>
+    </footer>
+
+    <script>
+        // 动态生成档案列表
+        function generateArchiveList() {
+            const archiveContainer = document.getElementById('archiveList');
+            const archives = [
+                { title: '档案 1', description: '您拥有权限阅读此文档。', link: 'bilibili.com' },
+                { title: '档案 2', description: '您拥有权限阅读此文档。', link: 'rai.html' },
+                // 更多档案数据可在此处添加
+            ];
+
+            archives.forEach(archive => {
+                const item = document.createElement('div');
+                item.className = 'archive-item';
+                item.innerHTML = `
+                    <h3>${archive.title}</h3>
+                    <p>${archive.description}</p>
+                    <a href="${archive.link}">查看档案</a>
+                `;
+                archiveContainer.appendChild(item);
+            });
+        }
+
+        window.addEventListener('DOMContentLoaded', generateArchiveList);
+    </script>
+</body>
+</html>
