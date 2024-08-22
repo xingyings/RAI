@@ -101,26 +101,6 @@
             margin-right: 20px;
         }
 
-        .archive-meta i {
-            margin-right: 5px;
-        }
-
-        .archive-meta .classification {
-            color: #dc3545;
-        }
-
-        .archive-meta .date {
-            color: #0d6efd;
-        }
-
-        .archive-meta .author {
-            color: #28a745;
-        }
-
-        .archive-meta .security-level {
-            color: #ffc107;
-        }
-
         /* 档案正文 */
         .archive-body {
             text-align: left;
@@ -129,10 +109,21 @@
             border: 1px solid #ddd;
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
         }
 
         .archive-body p {
             margin-bottom: 15px;
+        }
+
+        /* Markdown编辑器样式 */
+        .editor {
+            background-color: #fff;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
         }
 
         /* 底部样式 */
@@ -143,6 +134,7 @@
             padding: 10px 0;
         }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simplemde/1.11.18/simplemde.min.css">
 </head>
 <body>
     <div class="watermark">
@@ -166,14 +158,48 @@
                 <span><i class="fas fa-lock"></i> 保密程度: 已解密</span>
             </div>
             <div class="archive-body">
-                <p>这份档案包含了一些非常重要的细节和数据，仅供授权人员查阅。内容涉及...</p>
-                <!-- 档案正文内容可在此处添加 -->
+                <div class="editor" id="editor">
+# 组织设定
+
+## 一、他们代表的是什么？
+
+### （1）AAG代表...
+- AAG（阿尔法行动组）代表了探索与创新，致力于推动技术的不断进步和社会的发展。
+
+### （2）RAI代表...
+- RAI（未来智能联盟）代表了对智能技术的全面集成，旨在提升人类生活的各个方面。
+
+## 二、他们的目的
+
+### （1）AAG属于RAI
+- AAG作为RAI的一部分，致力于在地下
+
+### （2）RAI目的：
+- RAI的主要目的是通过整合和创新智能科技，创建一个更智能和可持续发展的未来，改善人类生活质量，推动社会各界从技术进步中受益。
+
+                </div>
+                <div id="preview" class="archive-body"></div>
             </div>
         </section>
     </main>
     <footer>
         <p>&copy; 2024 RAI. 版权所有.</p>
     </footer>
+
+    <!-- 使用 Markdown 编辑器和渲染库 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/simplemde/1.11.18/simplemde.min.js"></script>
+    <script>
+        // 初始化 Markdown 编辑器
+        var simplemde = new SimpleMDE({ element: document.getElementById("editor") });
+
+        // 实时渲染 Markdown
+        simplemde.codemirror.on("change", function() {
+            var markdown = simplemde.value();
+            document.getElementById("preview").innerHTML = marked(markdown);
+        });
+    </script>
+    <!-- 引入 marked.js 以支持 Markdown 渲染 -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
     <!-- 使用 Font Awesome 图标 -->
     <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
