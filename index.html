@@ -193,146 +193,93 @@
             <span class="close">&times;</span>
             <p>在继续访问本网站前，请仔细阅读我们的用户协议和隐私政策。如果您继续访问，即表示您同意我们的条款。</p>
             <a href="us.html" target="_blank">阅读更多</a>
-            <button id="agreeButton">不用点击</button>
+            <button id="agreeButton">我已仔细阅读并同意上述条款</button>
         </div>
     </div>
 
     <script>
-        // 定义档案列表
-        <!-- 档案开始 -->
-        const archives = [
-            {
-                title: "关于我们",
-                description: "ABOUT OUR",
-                <!-- 设置是否可展示 -->
-                visible: true,
-            <!-- 设置是否可展示 -->
-                link: "rai.html"
-            },
-            <!-- Next -->
-            {
-                title: "另一个档案",
-                description: "这是另一个档案的描述。",
-                <!-- 设置是否可展示 -->
-                visible: false,
-                <!-- 设置是否可展示 -->
-                link: "another.html"
-            }
-        ];
-<!-- 档案结束 -->
-        // 获取容器元素
-        const container = document.getElementById('archives');
-
-        // 遍历档案数组并创建HTML元素
-        archives.forEach(archive => {
-            if (archive.visible) {
-                const entry = document.createElement('div');
-                entry.className = 'archive-entry';
-                
-                const titleElement = document.createElement('h3');
-                const linkElement = document.createElement('a');
-                linkElement.href = archive.link;
-                linkElement.textContent = archive.title;
-                titleElement.appendChild(linkElement);
-
-                const descElement = document.createElement('p');
-                descElement.textContent = archive.description;
-
-                entry.appendChild(titleElement);
-                entry.appendChild(descElement);
-
-                container.appendChild(entry);
-            }
-        });
-
-        // 弹窗逻辑
-        const modal = document.getElementById('agreementModal');
-        const closeButton = document.querySelector('.close');
-        const agreeButton = document.getElementById('agreeButton');
-
-        function openModal() {
-            modal.style.display = "block";
+    <!-- 打开true关闭false -->
+    // 定义档案列表
+    const archives = [
+        {
+            title: "关于我们",
+            description: "ABOUT OUR",
+            visible: true,
+            link: "rai.html"
+        },
+        {
+            title: "另一个档案",
+            description: "这是另一个档案的描述。",
+            visible: false,
+            link: "another.html"
         }
+    ];
 
-        function closeModal() {
-            modal.style.display = "none";
-        }
+    // 获取容器元素
+    const container = document.getElementById('archives');
 
-        // 检查用户是否同意协议
-        function checkAgreement() {
-            if (!localStorage.getItem('agreed')) {
-                openModal();
-            }
-        }
+    // 弹窗逻辑
+    const modal = document.getElementById('agreementModal');
+    const closeButton = document.querySelector('.close');
+    const agreeButton = document.getElementById('agreeButton');
 
-        // 设置同意状态
-        function setAgreed() {
-            <!-- 切勿设置此flase -->
-            localStorage.setItem('agreed', flase);
-            <!-- 否则将展示隐藏档案 -->
-                <!-- ？切勿设置此如需打开请设置为ON？ -->
-            closeModal();
-        }
+    function openModal() {
+        modal.style.display = "block";
+    }
 
-        // 监听按钮事件
-        agreeButton.addEventListener('click', setAgreed);
-        closeButton.addEventListener('click', closeModal);
+    function closeModal() {
+        modal.style.display = "none";
+    }
 
-        // 页面加载时检查协议状态
-        window.addEventListener('DOMContentLoaded', checkAgreement);
-
-        // 在用户同意后生成档案列表
-        agreeButton.addEventListener('click', () => {
-            setTimeout(() => {
-                archives.forEach(archive => {
-                    if (archive.visible) {
-                        const entry = document.createElement('div');
-                        entry.className = 'archive-entry';
-                        
-                        const titleElement = document.createElement('h3');
-                        const linkElement = document.createElement('a');
-                        linkElement.href = archive.link;
-                        linkElement.textContent = archive.title;
-                        titleElement.appendChild(linkElement);
-
-                        const descElement = document.createElement('p');
-                        descElement.textContent = archive.description;
-
-                        entry.appendChild(titleElement);
-                        entry.appendChild(descElement);
-
-                        container.appendChild(entry);
-                    }
-                });
-            }, 100);
-        });
-
-        // 初始检查
+    // 检查用户是否同意协议
+    function checkAgreement() {
         if (!localStorage.getItem('agreed')) {
-            // 如果用户之前未同意，则默认展示档案列表
-            setTimeout(() => {
-                archives.forEach(archive => {
-                    if (archive.visible) {
-                        const entry = document.createElement('div');
-                        entry.className = 'archive-entry';
-                        
-                        const titleElement = document.createElement('h3');
-                        const linkElement = document.createElement('a');
-                        linkElement.href = archive.link;
-                        linkElement.textContent = archive.title;
-                        titleElement.appendChild(linkElement);
-
-                        const descElement = document.createElement('p');
-                        descElement.textContent = archive.description;
-
-                        entry.appendChild(titleElement);
-                        entry.appendChild(descElement);
-
-                        container.appendChild(entry);
-                    }
-                });
-            }, 100);
+            openModal();
         }
-    </script>
+    }
+
+    // 设置同意状态
+    function setAgreed() {
+        localStorage.setItem('agreed', 'flase');
+        closeModal();
+    }
+
+    // 页面加载时检查协议状态
+    window.addEventListener('DOMContentLoaded', checkAgreement);
+
+    // 在用户同意后生成档案列表
+    agreeButton.addEventListener('click', () => {
+        setTimeout(() => {
+            archives.forEach(archive => {
+                if (archive.visible) {
+                    const entry = document.createElement('div');
+                    entry.className = 'archive-item'; // 改为 'archive-item' 以匹配样式
+                    const titleElement = document.createElement('h3');
+                    const linkElement = document.createElement('a');
+                    linkElement.href = archive.link;
+                    linkElement.textContent = archive.title;
+                    titleElement.appendChild(linkElement);
+
+                    const descElement = document.createElement('p');
+                    descElement.textContent = archive.description;
+
+                    entry.appendChild(titleElement);
+                    entry.appendChild(descElement);
+
+                    container.appendChild(entry);
+                }
+            });
+        }, 100);
+    });
+
+    // 监听按钮事件
+    agreeButton.addEventListener('click', setAgreed);
+    closeButton.addEventListener('click', closeModal);
+
+    // 初始检查
+    if (!localStorage.getItem('agreed')) {
+        // 不再默认展示档案列表
+    }
+</script>
 </body>
 </html>
