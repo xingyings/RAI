@@ -96,77 +96,79 @@
         <button onclick="hideWarning()">取消</button>
     </div>
 
-    <script>
-        let currentStep = 0;
+<script>
+    let currentStep = 0;
 
-        function hideWarning() {
-            const warning = document.querySelector('.warning');
-            warning.style.display = 'none';
+    function hideWarning() {
+        const warning = document.querySelector('.warning');
+        warning.style.display = 'none';
 
-            document.getElementById('step1').style.display = 'none';
-            document.getElementById('step2').style.display = 'none';
-            document.getElementById('step3').style.display = 'none';
+        document.getElementById('step1').style.display = 'none';
+        document.getElementById('step2').style.display = 'none';
+        document.getElementById('step3').style.display = 'none';
+    }
+
+    function showNextStep() {
+        switch (currentStep) {
+            case 0:
+                document.querySelector('.warning').style.display = 'none';
+                document.getElementById('step1').style.display = 'block';
+                break;
+            case 1:
+                document.getElementById('step1').style.display = 'none';
+                document.getElementById('step2').style.display = 'block';
+                break;
+            case 2:
+                document.getElementById('step2').style.display = 'none';
+                document.getElementById('step3').style.display = 'block';
+                startCountdown(); // 启动计时器
+                break;
+            case 3:
+                // 用户已经完成了所有步骤
+                alert("您已经确认并接受了所有风险。");
+                hideWarning();
+                // 添加跳转逻辑
+                window.location.href = "rai-archive.html";
+                break;
         }
+        currentStep++;
+    }
 
-        function showNextStep() {
-            switch (currentStep) {
-                case 0:
-                    document.querySelector('.warning').style.display = 'none';
-                    document.getElementById('step1').style.display = 'block';
-                    break;
-                case 1:
-                    document.getElementById('step1').style.display = 'none';
-                    document.getElementById('step2').style.display = 'block';
-                    break;
-                case 2:
-                    document.getElementById('step2').style.display = 'none';
-                    document.getElementById('step3').style.display = 'block';
-                    startCountdown(); // 启动计时器
-                    break;
-                case 3:
-                    // 用户已经完成了所有步骤
-                    alert("您已经确认并接受了所有风险。");
-                    hideWarning();
-                    break;
+    function startCountdown() {
+        const finalConfirmButton = document.getElementById('finalConfirm');
+        finalConfirmButton.disabled = true; // 禁用最终确认按钮
+
+        const countdownElement = document.getElementById('countdown');
+        countdownElement.style.display = 'block'; // 显示倒计时文本
+
+        let countdownTimer = 3;
+        const countdownInterval = setInterval(() => {
+            if (countdownTimer > 0) {
+                countdownElement.textContent = `请等待 ${countdownTimer} 秒`;
+                countdownTimer--;
+            } else {
+                clearInterval(countdownInterval);
+                finalConfirmButton.disabled = false; // 启用最终确认按钮
+                countdownElement.textContent = ''; // 清空倒计时文本
+                document.getElementById('step3').classList.remove('grayedOut'); // 恢复正常状态
             }
-            currentStep++;
-        }
+        }, 1000);
 
-        function startCountdown() {
-            const finalConfirmButton = document.getElementById('finalConfirm');
-            finalConfirmButton.disabled = true; // 禁用最终确认按钮
+        // 灰白显示最终确认步骤
+        document.getElementById('step3').classList.add('grayedOut');
+    }
 
-            const countdownElement = document.getElementById('countdown');
-            countdownElement.style.display = 'block'; // 显示倒计时文本
+    // 阻止用户关闭警告框，除非点击了“我已阅读并理解”按钮
+    window.onbeforeunload = function(e) {
+        e.preventDefault();
+        return "网页缓存加载成功！请确认离开本网站！";
+    };
 
-            let countdownTimer = 3;
-            const countdownInterval = setInterval(() => {
-                if (countdownTimer > 0) {
-                    countdownElement.textContent = `请等待 ${countdownTimer} 秒`;
-                    countdownTimer--;
-                } else {
-                    clearInterval(countdownInterval);
-                    finalConfirmButton.disabled = false; // 启用最终确认按钮
-                    countdownElement.textContent = ''; // 清空倒计时文本
-                    document.getElementById('step3').classList.remove('grayedOut'); // 恢复正常状态
-                }
-            }, 1000);
-
-            // 灰白显示最终确认步骤
-            document.getElementById('step3').classList.add('grayedOut');
-        }
-
-        // 阻止用户关闭警告框，除非点击了“我已阅读并理解”按钮
-        window.onbeforeunload = function(e) {
-            e.preventDefault();
-            return "网页缓存加载成功！";
-        };
-
-        // 在页面加载完成后显示警告
-        window.onload = function() {
-            const warning = document.querySelector('.warning');
-            warning.style.display = 'block';
-        };
-    </script>
+    // 在页面加载完成后显示警告
+    window.onload = function() {
+        const warning = document.querySelector('.warning');
+        warning.style.display = 'block';
+    };
+</script>
 </body>
 </html>
