@@ -20,25 +20,6 @@
             position: relative;
         }
 
-        /* 水印效果 */
-        .watermark {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
-            opacity: 0.1;
-            mix-blend-mode: lighten;
-        }
-
-        .watermark img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
         /* 头部样式 */
         header {
             background-color: #333;
@@ -97,8 +78,13 @@
         }
 
         .archive-meta span {
-            display: block;
+            display: flex;
+            align-items: center;
             margin-right: 20px;
+        }
+
+        .archive-meta i {
+            margin-right: 5px;
         }
 
         /* 档案正文 */
@@ -134,12 +120,10 @@
             padding: 10px 0;
         }
     </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simplemde/1.11.18/simplemde.min.css">
+    <!-- 更换SimpleMDE的CDN链接 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simplemde/2.0.0/simplemde.min.css">
 </head>
 <body>
-    <div class="watermark">
-        <img src="https://wanx.alicdn.com/wanx/1321611370500770/text_to_image_lite_v2/382d2d26cbc04760aa3634ca8c4fdba0_0.png?x-oss-process=image/watermark,image_d2FueC93YXRlcm1hcmsvdG9uZ3lpYWlAMXgucG5n,t_80,g_se,x_0,y_0/format,webp" alt="RAI Watermark">
-    </div>
     <header>
         <nav>
             <a href="rai.html" class="logo">RAI</a>
@@ -154,31 +138,38 @@
             <h2>档案 1</h2>
             <div class="archive-meta">
                 <span><i class="fas fa-calendar"></i> 发布日期: 2024-08-16</span>
-                <span><i class="fas fa-user-secret"></i> 发布者代号: A0</span>
-                <span><i class="fas fa-lock"></i> 保密程度: 已解密</span>
+                <span><i class="fas fa-user-secret"></i> 发布者代号: Admin</span>
+                <span><i class="fas fa-lock-open"></i> 保密程度: 已解密</span>
             </div>
             <div class="archive-body">
-                <div class="editor" id="editor">
-# 组织设定
+                <article>
+                    <h1>组织设定</h1>
 
-## 一、他们代表的是什么？
+                    <h2>一、我们代表的是什么？</h2>
 
-### （1）AAG代表...
-- AAG（阿尔法行动组）代表了探索与创新，致力于推动技术的不断进步和社会的发展。
+                    <h3>（1）AAG代表...</h3>
+                    <!-- RAI 的含义是 "Rogue Alliance Intrusions"（不轨联盟入侵），暗示该组织进行未经授权的技术渗透和干扰。
+AAG 的含义是 "Adversarial Assault Group"（敌对攻击小组），暗示该组织利用复杂手段进行恶意攻击和数据破坏。 -->
+                    <ul>
+                        <li>AAG（阿尔法行动组）代表了探索与创新，致力于推动技术的不断进步和社会的发展。</li>
+                        <!-- 不是的 -->
+                    </ul>
 
-### （2）RAI代表...
-- RAI（未来智能联盟）代表了对智能技术的全面集成，旨在提升人类生活的各个方面。
+                    <h3>（2）RAI代表...</h3>
+                    <ul>
+                        <li>RAI（未来智能联盟）代表了对智能技术的全面集成，旨在提升人类生活的各个方面。</li>
+                    </ul>
+<!-- 不是的 -->
+                    <h2>二、我们的目的</h2>
+                    
+                    </ul>
 
-## 二、他们的目的
-
-### （1）AAG属于RAI
-- AAG作为RAI的一部分，致力于在地下
-
-### （2）RAI目的：
-- RAI的主要目的是通过整合和创新智能科技，创建一个更智能和可持续发展的未来，改善人类生活质量，推动社会各界从技术进步中受益。
-
-                </div>
-                <div id="preview" class="archive-body"></div>
+                    <h3>（1）RAI目的：</h3>
+                    <ul>
+                        <li>RAI的主要目的是通过整合和创新智能科技，创建一个更智能和可持续发展的未来，改善人类生活质量，推动社会各界从技术进步中受益.</li>
+                        <!-- 不是的 -->
+                    </ul>
+                </article>
             </div>
         </section>
     </main>
@@ -186,22 +177,7 @@
         <p>&copy; 2024 RAI. 版权所有.</p>
     </footer>
 
-    <!-- 使用 Markdown 编辑器和渲染库 -->
-    <script src="https://unpkg.com/simplemde@latest/dist/simplemde.min.js"></script>
-    <script>
-        // 初始化 Markdown 编辑器
-        var simplemde = new SimpleMDE({ element: document.getElementById("editor") });
-
-        // 实时渲染 Markdown
-        simplemde.codemirror.on("change", function() {
-            var markdown = simplemde.value();
-            document.getElementById("preview").innerHTML = marked(markdown);
-        });
-    </script>
-    <!-- 引入 marked.js 以支持 Markdown 渲染 -->
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-
-    <!-- 使用 Font Awesome 图标 -->
-    <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
+<!-- 使用 Font Awesome 图标 -->
+<script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous" onerror="this.onerror=null; document.write('<script src=\'https://use.fontawesome.com/releases/v5.15.4/js/all.js\' crossorigin=\'anonymous\'><\/script>');"></script>
 </body>
 </html>
