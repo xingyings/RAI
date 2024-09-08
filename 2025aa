@@ -1,0 +1,191 @@
+ 
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>视频开头页面</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            background-color: #000;
+            font-family: 'Open Sans', sans-serif;
+        }
+        .background-image {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background-image: url("https://file.imgcc.cloud/images/2024/09/08/32513efc5949e81693664af7f04be9ea.jpg");
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        .loading-container {
+            text-align: center;
+            font-size: 24px;
+            color: black;
+            animation: fadeIn 1s forwards;
+        }
+        .progress-bar {
+            width: 80%;
+            max-width: 400px; /* 防止进度条溢出 */
+            height: 20px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            margin-top: 20px;
+            overflow: hidden;
+            position: relative;
+        }
+        .progress-bar-fill {
+            height: 100%;
+            background-color: #007BFF;
+            width: 0;
+            transition: width 1s ease-in-out;
+        }
+        .progress-label {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #fff;
+            font-size: 16px;
+        }
+        .remaining-time {
+            margin-top: 10px;
+            color: #fff;
+            font-size: 16px;
+        }
+        .content-container {
+            text-align: center;
+            display: none;
+        }
+        .content {
+            font-size: 40px;
+            color: #000;
+            letter-spacing: 4px;
+            animation: fadeInOut 3s forwards;
+        }
+        .credits-container {
+            position: absolute;
+            bottom: 10px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            color: black;
+        }
+        .credit {
+            opacity: 0;
+            animation: fadeInOut 5s forwards;
+        }
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+        @keyframes fadeInOut {
+            0% {
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-image"></div>
+    <div class="loading-container">
+        <p>正在连接基沃托斯TV系统网...</p>
+        <div class="progress-bar">
+            <div class="progress-bar-fill"></div>
+            <span class="progress-label">0%</span>
+        </div>
+        <p class="remaining-time">剩余时间: 00:10</p>
+    </div>
+    <div class="content-container">
+        <h1 class="content">加载成功</h1>
+    </div>
+    <div class="credits-container">
+        <!-- Credits will be dynamically inserted here -->
+    </div>
+
+    <script>
+        const progressBarFill = document.querySelector('.progress-bar-fill');
+        const progressLabel = document.querySelector('.progress-label');
+        const remainingTime = document.querySelector('.remaining-time');
+        const loadingText = document.querySelector('.loading-container');
+        const contentContainer = document.querySelector('.content-container');
+        const creditsContainer = document.querySelector('.credits-container');
+
+        // Credits data
+        const credits = [
+            { role: '网页制作', name: '星影' },
+            { role: '总策划', name: '夏树' },
+            // Add more credits as needed
+        ];
+
+        // Function to create and append credit elements
+        function displayCredits() {
+            credits.forEach((credit, index) => {
+                const creditElement = document.createElement('div');
+                creditElement.textContent = `${credit.role}: ${credit.name}`;
+                creditElement.classList.add('credit');
+                // Set delay for each credit based on its index
+                creditElement.style.animationDelay = `${index * 5}s`;
+                creditsContainer.appendChild(creditElement);
+            });
+        }
+
+        displayCredits();
+
+        function updateProgress(width, timeRemaining) {
+            progressBarFill.style.width = `${width}%`;
+            progressLabel.textContent = `${width.toFixed(2)}%`;
+            remainingTime.textContent = `剩余时间: ${formatTime(timeRemaining)}`;
+        }
+
+        const loadingTime = 20000; // 10 seconds
+        const startTime = Date.now();
+
+        const intervalId = setInterval(() => {
+            const currentTime = Date.now();
+            const elapsed = currentTime - startTime;
+            const percentage = Math.min((elapsed / loadingTime) * 100, 100);
+            const timeRemaining = Math.max(loadingTime - elapsed, 0);
+
+            updateProgress(percentage, timeRemaining);
+
+            if (percentage >= 100) {
+                clearInterval(intervalId);
+                loadingText.style.display = 'none';
+                contentContainer.style.display = 'block';
+            }
+        }, 50);
+
+        function formatTime(time) {
+            const seconds = Math.floor(time / 1000);
+            const minutes = Math.floor(seconds / 60);
+            const secondsLeft = seconds % 60;
+            return `${pad(minutes)}:${pad(secondsLeft)}`;
+        }
+
+        function pad(num) {
+            return num.toString().padStart(2, '0');
+        }
+    </script>
+</body>
+</html>
+ 
