@@ -1,3 +1,4 @@
+ 
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -14,7 +15,7 @@
             align-items: center;
             height: 100vh;
             overflow: hidden;
-            background-color: rgba(0, 0, 0, 0.8); /* 修改背景透明度 */
+            background-color: rgba(0, 0, 0, 0.8);
             font-family: 'Open Sans', sans-serif;
         }
         .background-image {
@@ -37,7 +38,7 @@
         }
         .progress-bar {
             width: 80%;
-            max-width: 400px; /* 防止进度条溢出 */
+            max-width: 400px;
             height: 20px;
             background-color: rgba(0, 0, 0, 0.5);
             border-radius: 10px;
@@ -61,7 +62,7 @@
         }
         .remaining-time {
             margin-top: 10px;
-            color: #fff;
+            color: black; /* 文字颜色修改为黑色 */
             font-size: 16px;
         }
         .content-container {
@@ -133,20 +134,15 @@
         const credits = [
             { role: 'hello', name: '你好'},
             { role: 'loading....', name: '加载中'},
-            { role: 'loading....', name: '加载中'},
-            { role: 'loading....', name: '加载中'},
-            { role: 'loading....', name: '加载中'},
-            { role: 'loading....', name: '加载中'},
-            { role: 'loading....', name: '加载中'},
-            { role: 'loading....', name: '加载中'},
-            
-
+            // ... (其他信用数据)
         ];
+
         // Function to create and append credit elements
         function displayCredits() {
             credits.forEach((credit, index) => {
                 const creditElement = document.createElement('div');
                 creditElement.textContent = `${credit.role}:${credit.name}`;
+  
                 creditElement.classList.add('credit');
                 // Set delay for each credit based on its index
                 creditElement.style.animationDelay = `${index * 10}s`;
@@ -163,7 +159,7 @@
         }
 
         // Corrected loading time to 20 seconds for demonstration purposes
-        const loadingTime = 300000; // 20 seconds
+        const loadingTime = 300000; // 300 seconds
         const startTime = Date.now();
 
         const intervalId = setInterval(() => {
@@ -194,4 +190,4 @@
     </script>
 </body>
 </html>
-
+ 
