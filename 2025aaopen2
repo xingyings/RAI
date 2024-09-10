@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2025年AA新春会直播开场画面</title>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+<style>
+    body {
+        font-family: 'Open Sans', sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background: url(https://img.wjwj.top/2024/09/08/32513efc5949e81693664af7f04be9ea.jpg) no-repeat center center fixed;
+        background-size: cover;
+        color: #ffcc00;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 2em;
+        border-radius: 15px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5), 0 0 4px rgba(0, 0, 0, 0.2);
+        background-color: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+        width: 100%;
+        max-width: 500px;
+    }
+    .title {
+        font-size: 2rem;
+        margin-bottom: 20px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+    }
+    .countdown {
+        font-size: 5rem;
+        animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <div class="title">2025年AA新春会</div>
+    <div id="countdown" class="countdown"></div>
+</div>
+<script>
+(function() {
+    // 初始化目标时间
+    var targetTime = new Date().getTime() + (5 * 60 * 1000 + 20 * 1000); // 5分钟20秒后的时间点
+
+    function updateCountdown() {
+        var now = new Date().getTime();
+        var distance = targetTime - now;
+
+        if (distance <= 0) {
+            clearInterval(x);
+            document.getElementById("countdown").innerHTML = "直播已开始！";
+            return;
+        }
+
+        // 计算分钟数和秒数
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        // 输出结果
+        document.getElementById("countdown").innerHTML = minutes + "分钟 " + seconds + "秒 ";
+    }
+
+    // 开始倒计时
+    var x = setInterval(updateCountdown, 1000);
+
+    // 防止外部修改
+    Object.freeze(window);
+    Object.freeze(document);
+    Object.freeze(Date);
+
+    // 模拟控制台输出，防止篡改时间
+    console.log = function() {};
+})();
+</script>
+</body>
+</html>
